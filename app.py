@@ -2,7 +2,10 @@ import streamlit as st
 from streamlit_extras.let_it_rain import rain
 from streamlit_extras.add_vertical_space import add_vertical_space
 
-st.set_page_config(layout="wide")
+# Set page configuration
+st.set_page_config(layout="wide", page_title="AI Tools Explorer", page_icon="🧠")
+
+# Hide default Streamlit UI elements
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -81,30 +84,31 @@ mind_map = {
     },
 }
 
-# Streamlit UI configuration
-st.set_page_config(layout="wide", page_title="AI Tools Explorer", page_icon="🧠")
+# Streamlit UI
 st.title("🔍 AI Tools Explorer")
 
-# Sidebar for navigation with animations
+# Sidebar with animations
 st.sidebar.title("🗂️ Categories")
 rain(emoji="📂", font_size=20, falling_speed=2, animation_length="infinite")
+
+# Select category and subcategory
 category_selected = st.sidebar.selectbox("Select a category", sorted(mind_map.keys()))
 subcategory_selected = st.sidebar.selectbox("Select a subcategory", sorted(mind_map[category_selected].keys()))
 
-# Display tools in the selected category and subcategory
+# Display tools
 st.subheader(f"{subcategory_selected} - {category_selected}")
 tools = mind_map[category_selected][subcategory_selected]
 
-# Two-column layout: Left for descriptions, right for embedded iframe
+# Two-column layout
 col1, col2 = st.columns([1, 2])
 
 with col1:
     st.write("### 📋 Tools List")
     for tool in tools:
-        if st.button(f"🔗 {tool['name']}"):
+        if st.button(f"🔗 {tool['name']}", key=tool['name']):
             st.session_state['selected_tool'] = tool
 
-# Check if a tool is selected and display its information
+# Check if a tool is selected
 if 'selected_tool' in st.session_state:
     selected_tool = st.session_state['selected_tool']
     with col1:
@@ -118,5 +122,5 @@ else:
     with col2:
         st.write("🔍 Select a tool to view more information and visit its website.")
 
-# Adding some vertical space for better UI spacing
+# Adding vertical space for better UI
 add_vertical_space(2)
