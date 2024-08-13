@@ -118,6 +118,11 @@ if 'selected_tool' in st.session_state:
     with col2:
         st.write(f"### 🌐 {selected_tool['name']} Website")
         st.components.v1.iframe(selected_tool['url'], height=600, scrolling=True)
+        # Adding a button to open the link in a new tab
+        st.markdown(
+            f'<a href="{selected_tool["url"]}" target="_blank" rel="noopener noreferrer">🔗 Open in New Tab</a>',
+            unsafe_allow_html=True
+        )
 else:
     with col2:
         st.write("🔍 Select a tool to view more information and visit its website.")
