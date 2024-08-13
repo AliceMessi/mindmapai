@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_extras.let_it_rain import rain
 from streamlit_extras.add_vertical_space import add_vertical_space
 
 # Set page configuration
@@ -7,12 +6,12 @@ st.set_page_config(layout="wide", page_title="AI Tools Explorer by Hoken Tech", 
 
 # Hide default Streamlit UI elements
 hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+</style>
+"""
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # Mind map structure with AI tools categorized and descriptions
@@ -33,6 +32,9 @@ mind_map = {
             {"name": "Bing Image Creator", "url": "https://www.bing.com/images/create", "description": "Bing Image Creator allows users to generate images using AI directly from prompts."},
             {"name": "Craiyon", "url": "https://www.craiyon.com/", "description": "Craiyon is a free AI image generator that produces images from text prompts."},
             {"name": "Artbreeder", "url": "https://www.artbreeder.com/create", "description": "Artbreeder allows users to create and modify images using AI-powered tools."},
+        ],
+        "🕰️ AI Authentication": [
+            {"name": "TrustWatch", "url": "https://www.hokentech.tech/trustwatch", "description": "TrustWatch is the leading AI-driven mobile application for luxury watch authentication."},
         ],
     },
     "💻 AI Tools for Developers": {
@@ -87,9 +89,8 @@ mind_map = {
 # Streamlit UI
 st.title("🔍 AI Tools Explorer by Hoken Tech")
 
-# Sidebar with animations
+# Sidebar with categories
 st.sidebar.title("🗂️ Categories")
-rain(emoji="📂", font_size=20, falling_speed=2, animation_length="infinite")
 
 # Select category and subcategory
 category_selected = st.sidebar.selectbox("Select a category", sorted(mind_map.keys()))
@@ -114,7 +115,6 @@ if 'selected_tool' in st.session_state:
     with col1:
         st.write(f"**{selected_tool['name']}**")
         st.write(selected_tool['description'])
-
     with col2:
         st.write(f"### 🌐 {selected_tool['name']} Website")
         st.components.v1.iframe(selected_tool['url'], height=600, scrolling=True)
