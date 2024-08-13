@@ -412,13 +412,7 @@ subcategory_selected = st.sidebar.selectbox("Select a subcategory", sorted(mind_
 
 # Adding the payment button at the bottom left corner of the sidebar
 st.sidebar.markdown("---")  # Add a separator
-if st.sidebar.button("🚀 List Your AI Tool", key="payment_button"):
-    st.session_state.show_payment_frame = True
-
-# Display the payment iframe if the button is clicked
-if st.session_state.get("show_payment_frame", False):
-    st.write("### 🚀 List Your AI Tool")  # Add a title
-    st.components.v1.iframe("https://buy.stripe.com/3csfZIcbeeVTbn2002", height=600, scrolling=True)
+st.sidebar.button("🚀 List Your AI Tool", key="payment_button", on_click=lambda: st.write("Payment link: [https://buy.stripe.com/3csfZIcbeeVTbn2002](https://buy.stripe.com/3csfZIcbeeVTbn2002)"))
     
 # Display tools
 st.subheader(f"{subcategory_selected} - {category_selected}")
