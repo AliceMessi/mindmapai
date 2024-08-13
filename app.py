@@ -87,30 +87,13 @@ mind_map = {
 # Streamlit UI
 st.title("🔍 AI Tools Explorer by Hoken Tech")
 
-# Sidebar with search functionality and animations
+# Sidebar with animations
 st.sidebar.title("🗂️ Categories")
 rain(emoji="📂", font_size=20, falling_speed=2, animation_length="infinite")
 
-# Search bar
-search_query = st.sidebar.text_input("Search tools:", "")
-
-# Filter categories and subcategories based on search query
-filtered_categories = [cat for cat in mind_map.keys() if search_query.lower() in cat.lower()]
-filtered_subcategories = {}
-for cat in filtered_categories:
-    filtered_subcategories[cat] = {subcat: tools for subcat, tools in mind_map[cat].items() if search_query.lower() in subcat.lower()}
-
 # Select category and subcategory
-if filtered_categories:
-    category_selected = st.sidebar.selectbox("Select a category", sorted(filtered_categories))
-else:
-    category_selected = st.sidebar.selectbox("Select a category", sorted(mind_map.keys()))
-
-filtered_subcategories = mind_map[category_selected]
-if filtered_subcategories:
-    subcategory_selected = st.sidebar.selectbox("Select a subcategory", sorted(filtered_subcategories.keys()))
-else:
-    subcategory_selected = st.sidebar.selectbox("Select a subcategory", sorted(mind_map[category_selected].keys()))
+category_selected = st.sidebar.selectbox("Select a category", sorted(mind_map.keys()))
+subcategory_selected = st.sidebar.selectbox("Select a subcategory", sorted(mind_map[category_selected].keys()))
 
 # Display tools
 st.subheader(f"{subcategory_selected} - {category_selected}")
@@ -125,20 +108,21 @@ with col1:
         if st.button(f"🔗 {tool['name']}", key=tool['name']):
             st.session_state['selected_tool'] = tool
 
-# Check if a tool is selected and display its information
+# Check if a tool is selected
 if 'selected_tool' in st.session_state:
     selected_tool = st.session_state['selected_tool']
     with col1:
         st.write(f"**{selected_tool['name']}**")
         st.write(selected_tool['description'])
-        st.markdown(
-            f'<a href="{selected_tool["url"]}" target="_blank" rel="noopener noreferrer">🔗 Open in New Tab</a>',
-            unsafe_allow_html=True
-        )
 
     with col2:
         st.write(f"### 🌐 {selected_tool['name']} Website")
         st.components.v1.iframe(selected_tool['url'], height=600, scrolling=True)
+        # Adding a button to open the link in a new tab
+        st.markdown(
+            f'<a href="{selected_tool["url"]}" target="_blank" rel="noopener noreferrer">🔗 Open in New Tab</a>',
+            unsafe_allow_html=True
+        )
 else:
     with col2:
         st.write("🔍 Select a tool to view more information and visit its website.")
