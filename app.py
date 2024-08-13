@@ -322,6 +322,7 @@ mind_map = {
         ],
         "📊 AI Project Management": [
             {"name": "ItsDart", "url": "https://www.itsdart.com/", "description": "Project management with AI"},
+            {"name": "Startup Business Model Generator", "url": "https://hokentech.gumroad.com/l/startup-business-model-generator", "description": "Creating a comprehensive business plan feels overwhelming and time-consuming for aspiring entrepreneurs"},
         ],
         "📝 AI Presentation and Document Creation": [
             {"name": "Guidde", "url": "https://www.guidde.com/", "description": "Create presentation videos or various documents"},
